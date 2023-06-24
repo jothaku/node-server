@@ -29,12 +29,26 @@ function toggleTask(index) {
   }
 }
 
+function showTasks() {
+  if (tasks.length === 0) {
+    console.log("No hay tareas.");
+  } else {
+    console.log("Lista de tareas:");
+    tasks.forEach((task, index) => {
+      const status = task.completado ? "[X]" : "[ ]";
+      console.log(
+        `${index}. ${status} ${task.indicador} - ${task.descripcion}`
+      );
+    });
+  }
+}
 function showOptions() {
   console.log("Opciones disponibles:");
   console.log("1. Añadir tarea");
   console.log("2. Eliminar tarea");
   console.log("3. Marcar tarea como completada");
-  console.log("4. Salir");
+  console.log("4. Ver lista de tareas");
+  console.log("0. Salir");
 
   rl.question("Seleccione una opción: ", (option) => {
     switch (option) {
@@ -65,6 +79,10 @@ function showOptions() {
         );
         break;
       case "4":
+        showTasks(); // Mostrar lista de tareas
+        showOptions(); // Mostrar opciones nuevamente
+        break;
+      case "0":
         rl.close(); // Salir del programa
         break;
       default:
